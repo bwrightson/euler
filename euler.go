@@ -13,6 +13,6 @@ func elapsed(t time.Time) {
 
 func main() {
 	var start = time.Now()
-	fmt.Printf("The answer is %d.\n", problems.Solve003())
+	fmt.Printf("The answer is %d.\n", problems.Solve004Alt())
 	elapsed(start)
 }
