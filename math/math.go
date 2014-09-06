@@ -24,7 +24,10 @@ func IsPrime(n int) bool {
 	if n == 2 {
 		return true
 	}
-	for i := 3; i < int(math.Sqrt(float64(n))); i += 2 {
+	if n%2 == 0 {
+		return false
+	}
+	for i := 3; i < int(math.Sqrt(float64(n)))+1; i += 2 {
 		if n%i == 0 {
 			return false
 		}
@@ -32,10 +35,86 @@ func IsPrime(n int) bool {
 	return true
 }
 
+// LCM returns the lowest common multiple of slice s
+func LCM(s []int) int {
+	lcm := 1
+	type PrimeExponents [][]int
+	primes := PrimeExponents{}
+	for _, i := range s {
+		if i == 1 {
+			continue
+		}
+		temp := PrimeFactorization(i)
+		for _, t := range temp {
+			found := false
+			for _, v := range primes {
+				if t[0] == v[0] {
+					found = true
+					if t[1] > v[1] {
+						v[1] = t[1]
+					}
+				}
+			}
+			if !found {
+				primes = append(primes, t)
+			}
+		}
+	}
+	for _, v := range primes {
+		lcm *= int(math.Pow(float64(v[0]), float64(v[1])))
+	}
+	return lcm
+}
+
 // NthDigit returns the nth digit of x, counting from right to left
 func NthDigit(n, x int) int {
 	i := int(math.Pow(10, float64(n-1)))
 	return x / i % 10
+}
+
+// PrimeFactorization returns a slice of int slices that represents
+// the prime factorization of n
+func PrimeFactorization(n int) [][]int {
+	temp := n
+	found := false
+	type PrimeExponents [][]int
+	primes := PrimeExponents{}
+OuterLoop:
+	for i := 2; ; {
+		found = false
+		if IsPrime(temp) {
+			for _, v := range primes {
+				if v[0] == temp {
+					v[1] += 1
+					break OuterLoop
+				}
+			}
+			if !found {
+				val := []int{temp, 1}
+				primes = append(primes, val)
+				break OuterLoop
+			}
+		}
+		if IsPrime(i) {
+			if temp%i == 0 {
+				temp = temp / i
+				for _, v := range primes {
+					if v[0] == i {
+						v[1] += 1
+						found = true
+						break
+					}
+				}
+				if !found {
+					val := []int{i, 1}
+					primes = append(primes, val)
+				}
+				continue
+			}
+		}
+		i += 1
+	}
+	return primes
 }
 
 // SetNthDigit sets the nth digit of x to newVal, counting from right to left
