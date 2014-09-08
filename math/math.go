@@ -38,8 +38,7 @@ func IsPrime(n int) bool {
 // LCM returns the lowest common multiple of slice s
 func LCM(s []int) int {
 	lcm := 1
-	type PrimeExponents [][]int
-	primes := PrimeExponents{}
+	primes := make([][]int, 0)
 	for _, i := range s {
 		if i == 1 {
 			continue
@@ -72,13 +71,52 @@ func NthDigit(n, x int) int {
 	return x / i % 10
 }
 
+// NthPrime returns the nth prime (starting at 2) using a trial division method
+func NthPrime(n int) int {
+	prime := 2
+	for i, count := 3, 1; count < n; i = i + 2 {
+		if IsPrime(i) {
+			prime = i
+			count = count + 1
+		}
+	}
+	return prime
+}
+
+// NthPrimeWithSieve returns the nth prime (starting at 2) using a simple
+// version of the Sieve of Eratosthenes
+func NthPrimeWithSieve(n int) int {
+	if n == 1 {
+		return 2
+	}
+	multiples := make([][]int, 0)
+	init := []int{2, 4}
+	multiples = append(multiples, init)
+	prime := 2
+	for i, count, check := 3, 1, true; count < n; i = i + 1 {
+		check = true
+		for _, j := range multiples {
+			if j[1] == i {
+				j[1] = j[1] + j[0]
+				check = false
+			}
+		}
+		if check {
+			prime = i
+			count = count + 1
+			inc := []int{i, i + i}
+			multiples = append(multiples, inc)
+		}
+	}
+	return prime
+}
+
 // PrimeFactorization returns a slice of int slices that represents
 // the prime factorization of n
 func PrimeFactorization(n int) [][]int {
 	temp := n
 	found := false
-	type PrimeExponents [][]int
-	primes := PrimeExponents{}
+	primes := make([][]int, 0)
 OuterLoop:
 	for i := 2; ; {
 		found = false
