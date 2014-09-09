@@ -37,3 +37,21 @@ func TestProblem5(t *testing.T) {
 		t.Error("Problem 5 is broken")
 	}
 }
+
+func TestProblem7(t *testing.T) {
+	if Solve007() != 104743 {
+		t.Error("Problem 7 is broken")
+	}
+}
+
+func TestProblem7Alt(t *testing.T) {
+	if Solve007Alt() != 104743 {
+		t.Error("Problem 7Alt is broken")
+	}
+}
+
+func TestProblem8(t *testing.T) {
+	if Solve008() != 23514624000 {
+		t.Error("Problem 8 is broken")
+	}
+}
