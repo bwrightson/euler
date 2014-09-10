@@ -55,3 +55,15 @@ func TestProblem8(t *testing.T) {
 		t.Error("Problem 8 is broken")
 	}
 }
+
+func TestProblem9(t *testing.T) {
+	if Solve009() != 31875000 {
+		t.Error("Problem 9 is broken")
+	}
+}
+
+func TestProblem9Alt(t *testing.T) {
+	if Solve009Alt() != 31875000 {
+		t.Error("Problem 9Alt is broken")
+	}
+}

@@ -167,3 +167,39 @@ func Solve008() int {
 	}
 	return product
 }
+
+func Solve009() int {
+	for a := 2; a < 333; a++ {
+		aSquared := a * a
+		for b := a + 1; b < 1000; b++ {
+			bSquared := b * b
+			for c := b + 1; c < 1000; c++ {
+				cSquared := c * c
+				if a+b+c == 1000 && aSquared+bSquared == cSquared {
+					return a * b * c
+				}
+				if cSquared > aSquared+bSquared || a+b+c > 1000 {
+					break
+				}
+			}
+		}
+	}
+	return 1
+}
+
+func Solve009Alt() int {
+	a, b, c := 0, 0, 0
+	for m := 1; m < 250; m++ {
+		if 500%m != 0 {
+			continue
+		}
+		n := (500/m - m)
+		if m > n {
+			a = m*m - n*n
+			b = 2 * m * n
+			c = m*m + n*n
+			break
+		}
+	}
+	return a * b * c
+}
