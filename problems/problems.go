@@ -2,10 +2,12 @@ package problems
 
 import (
 	"container/list"
-	"github.com/bwrightson/euler/math"
+	"math"
 	"strconv"
 	"strings"
 )
+
+import localmath "github.com/bwrightson/euler/math"
 
 func Solve001() int {
 	sum := 0
@@ -33,7 +35,7 @@ func Solve003() int {
 	val := 600851475143
 	factor := 0
 	for i := 2; ; {
-		if val%i == 0 && math.IsPrime(i) {
+		if val%i == 0 && localmath.IsPrime(i) {
 			val = val / i
 			factor = i
 			continue
@@ -60,26 +62,26 @@ func Solve004() int {
 				break
 			}
 		}
-		j := math.NthDigit(3, pal)
+		j := localmath.NthDigit(3, pal)
 		if j > 0 {
-			math.SetNthDigit(3, j-1, &pal)
-			math.SetNthDigit(4, j-1, &pal)
+			localmath.SetNthDigit(3, j-1, &pal)
+			localmath.SetNthDigit(4, j-1, &pal)
 		} else {
-			k := math.NthDigit(2, pal)
+			k := localmath.NthDigit(2, pal)
 			if k > 0 {
-				math.SetNthDigit(2, k-1, &pal)
-				math.SetNthDigit(5, k-1, &pal)
-				math.SetNthDigit(3, 9, &pal)
-				math.SetNthDigit(4, 9, &pal)
+				localmath.SetNthDigit(2, k-1, &pal)
+				localmath.SetNthDigit(5, k-1, &pal)
+				localmath.SetNthDigit(3, 9, &pal)
+				localmath.SetNthDigit(4, 9, &pal)
 			} else {
-				l := math.NthDigit(1, pal)
+				l := localmath.NthDigit(1, pal)
 				if l > 0 {
-					math.SetNthDigit(1, l-1, &pal)
-					math.SetNthDigit(6, l-1, &pal)
-					math.SetNthDigit(2, 9, &pal)
-					math.SetNthDigit(5, 9, &pal)
-					math.SetNthDigit(3, 9, &pal)
-					math.SetNthDigit(4, 9, &pal)
+					localmath.SetNthDigit(1, l-1, &pal)
+					localmath.SetNthDigit(6, l-1, &pal)
+					localmath.SetNthDigit(2, 9, &pal)
+					localmath.SetNthDigit(5, 9, &pal)
+					localmath.SetNthDigit(3, 9, &pal)
+					localmath.SetNthDigit(4, 9, &pal)
 				}
 			}
 		}
@@ -91,7 +93,7 @@ func Solve004Alt() int {
 	for i := 999; i > 100; i = i - 1 {
 		for j := i; j > 100; j = j - 1 {
 			p = i * j
-			if math.IsPalindrome(p) && p > pal {
+			if localmath.IsPalindrome(p) && p > pal {
 				pal = p
 				break
 			}
@@ -105,17 +107,17 @@ func Solve004Alt() int {
 
 func Solve005() int {
 	series := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20}
-	return math.LCM(series)
+	return localmath.LCM(series)
 }
 
 func Solve007() int {
 	val := 10001
-	return math.NthPrimeWithSieve(val)
+	return localmath.NthPrimeWithSieve(val)
 }
 
 func Solve007Alt() int {
 	val := 10001
-	return math.NthPrime(val)
+	return localmath.NthPrime(val)
 }
 
 func Solve008() int {
@@ -202,4 +204,42 @@ func Solve009Alt() int {
 		}
 	}
 	return a * b * c
+}
+
+func Solve010() int {
+	sieve := make([]bool, 2000000)
+	for i := range sieve {
+		if i%2 == 0 {
+			sieve[i] = false
+		} else {
+			sieve[i] = true
+		}
+	}
+	sieve[0], sieve[1], sieve[2] = false, false, true
+	for i := 3; i < int(math.Sqrt(float64(2000000))); i += 2 {
+		if !sieve[i] {
+			continue
+		} else {
+			for j := 3; j*i < 2000000; j += 2 {
+				sieve[i*j] = false
+			}
+		}
+	}
+	sum := 2
+	for i := 3; i < len(sieve); i += 2 {
+		if sieve[i] {
+			sum += i
+		}
+	}
+	return sum
+}
+
+func Solve010Alt() int {
+	sum := 2
+	for i := 3; i < 2000000; i += 2 {
+		if localmath.IsPrime(i) {
+			sum += i
+		}
+	}
+	return sum
 }
