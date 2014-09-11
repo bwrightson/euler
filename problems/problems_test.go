@@ -79,3 +79,9 @@ func TestProblem10Alt(t *testing.T) {
 		t.Error("Problem 10Alt is broken")
 	}
 }
+
+func TestProblem11(t *testing.T) {
+	if Solve011() != 70600674 {
+		t.Error("Problem 11 is broken")
+	}
+}
