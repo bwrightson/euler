@@ -2,7 +2,6 @@ package problems
 
 import (
 	"container/list"
-	"math"
 	"strconv"
 	"strings"
 )
@@ -207,24 +206,7 @@ func Solve009Alt() int {
 }
 
 func Solve010() int {
-	sieve := make([]bool, 2000000)
-	for i := range sieve {
-		if i%2 == 0 {
-			sieve[i] = false
-		} else {
-			sieve[i] = true
-		}
-	}
-	sieve[0], sieve[1], sieve[2] = false, false, true
-	for i := 3; i < int(math.Sqrt(float64(2000000))); i += 2 {
-		if !sieve[i] {
-			continue
-		} else {
-			for j := 3; j*i < 2000000; j += 2 {
-				sieve[i*j] = false
-			}
-		}
-	}
+	sieve := localmath.GeneratePrimesToN(2000000)
 	sum := 2
 	for i := 3; i < len(sieve); i += 2 {
 		if sieve[i] {
@@ -313,4 +295,18 @@ func Solve011() int {
 		}
 	}
 	return product
+}
+
+func Solve012() int {
+	n := 0
+	primes := localmath.GeneratePrimesToN(100000000)
+	for i := 1; ; i++ {
+		n += i
+		if n%2 != 0 {
+			continue
+		}
+		if localmath.DivisorCount(n, primes) > 500 {
+			return n
+		}
+	}
 }
