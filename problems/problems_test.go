@@ -91,3 +91,16 @@ func TestProblem12(t *testing.T) {
 		t.Error("Problem 12 is broken")
 	}
 }
+
+func TestProblem13(t *testing.T) {
+	answer := []int{5, 5, 3, 7, 3, 7, 6, 2, 3, 0}
+	test := Solve013()
+	if len(answer) != len(test) {
+		t.Error("Problem 13 is broken")
+	}
+	for i := range answer {
+		if answer[i] != test[i] {
+			t.Error("Problem 13 is broken")
+		}
+	}
+}
