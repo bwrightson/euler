@@ -442,3 +442,50 @@ func Solve013() []int {
 	}
 	return result
 }
+
+func Solve014() int {
+	m := make(map[int]int)
+	// Iterate through each number starting at 2
+	for i := 2; i < 1000000; i++ {
+		count := 1
+		chain := []int{}
+		// Run through the Collatz process for each number
+		for current := i; ; count++ {
+			// If we've reached 1, we're done
+			if current == 1 {
+				m[i] = count
+				break
+			}
+			// If we encounter a number that we've already stored,
+			// we're done
+			if m[current] > 0 {
+				count = m[current] + count - 1
+				break
+			}
+			// Add the newest value to a temporary variable
+			chain = append(chain, current)
+			// Iterate to the next step in the chain
+			if current%2 == 0 {
+				current /= 2
+			} else {
+				current = 3*current + 1
+			}
+		}
+		// Store all the new chain lengths we calculated in this round
+		for j := 0; j < len(chain); j++ {
+			m[chain[j]] = count
+			count--
+		}
+	}
+	num, val := 0, 0
+	// Find the value with the longest chain
+	for i := range m {
+		if i > 1000000 {
+			continue
+		}
+		if m[i] > val {
+			num, val = i, m[i]
+		}
+	}
+	return num
+}

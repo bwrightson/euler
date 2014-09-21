@@ -104,3 +104,9 @@ func TestProblem13(t *testing.T) {
 		}
 	}
 }
+
+func TestProblem14(t *testing.T) {
+	if Solve014() != 837799 {
+		t.Error("Problem 14 is broken")
+	}
+}
