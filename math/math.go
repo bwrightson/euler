@@ -2,6 +2,7 @@ package math
 
 import (
 	"math"
+	"math/big"
 	"strconv"
 )
 
@@ -229,5 +230,19 @@ func SetNthDigit(n, newVal int, x *int) {
 	cur := NthDigit(n, *x)
 	diff := (newVal - cur) * int(math.Pow(10, float64(n-1)))
 	*x = *x + diff
+	return
+}
+
+// Get the factorial of a number
+// From here: http://play.golang.org/p/fesr8ZINYu since I had trouble with the
+// big library
+func CalculateFactorial(n *big.Int) (result *big.Int) {
+	result = big.NewInt(1)
+	var one big.Int
+	one.SetInt64(1)
+	for n.Cmp(&big.Int{}) == 1 {
+		result.Mul(result, n)
+		n.Sub(n, &one)
+	}
 	return
 }

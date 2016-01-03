@@ -8,11 +8,12 @@ import (
 
 // elapsed prints the amount of time in seconds since t
 func elapsed(t time.Time) {
-	fmt.Printf("The program took %10.8f seconds to run.\n", time.Duration.Seconds(time.Since(t)))
+	fmt.Printf("The program took %10.8f seconds to run.\n",
+		time.Duration.Seconds(time.Since(t)))
 }
 
 func main() {
 	var start = time.Now()
-	fmt.Printf("The answer is %d.\n", problems.Solve014())
+	fmt.Printf("The answer is %d.\n", problems.Solve015())
 	elapsed(start)
 }

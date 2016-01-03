@@ -2,6 +2,7 @@ package problems
 
 import (
 	"container/list"
+	"math/big"
 	"strconv"
 	"strings"
 )
@@ -488,4 +489,15 @@ func Solve014() int {
 		}
 	}
 	return num
+}
+
+func Solve015() int {
+	n := big.NewInt(40)
+	k := big.NewInt(20)
+	var result big.Int
+	n = localmath.CalculateFactorial(n)
+	k = localmath.CalculateFactorial(k)
+	k.Mul(k, k)
+	result.Div(n, k)
+	return int(result.Int64())
 }
