@@ -236,7 +236,7 @@ func SetNthDigit(n, newVal int, x *int) {
 // Get the factorial of a number
 // From here: http://play.golang.org/p/fesr8ZINYu since I had trouble with the
 // big library
-func CalculateFactorial(n *big.Int) (result *big.Int) {
+func CalcFactorial(n *big.Int) (result *big.Int) {
 	result = big.NewInt(1)
 	var one big.Int
 	one.SetInt64(1)
@@ -244,5 +244,21 @@ func CalculateFactorial(n *big.Int) (result *big.Int) {
 		result.Mul(result, n)
 		n.Sub(n, &one)
 	}
-	return
+	return result
+}
+
+func CalcLargeExponent(b int, n int) (result big.Int) {
+	result.Exp(big.NewInt(int64(b)), big.NewInt(int64(n)), nil)
+	return result
+}
+
+func CalcDigitSum(n *big.Int) int {
+	zero, ten := big.NewInt(0), big.NewInt(10)
+	sum := 0
+	var mod big.Int
+	for n.Cmp(zero) > 0 {
+		n.DivMod(n, ten, &mod)
+		sum += int(mod.Int64())
+	}
+	return sum
 }

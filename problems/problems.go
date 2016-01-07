@@ -495,9 +495,16 @@ func Solve015() int {
 	n := big.NewInt(40)
 	k := big.NewInt(20)
 	var result big.Int
-	n = localmath.CalculateFactorial(n)
-	k = localmath.CalculateFactorial(k)
+	n = localmath.CalcFactorial(n)
+	k = localmath.CalcFactorial(k)
 	k.Mul(k, k)
 	result.Div(n, k)
 	return int(result.Int64())
+}
+
+func Solve016() int {
+	b, n := 2, 1000
+	exp := localmath.CalcLargeExponent(b, n)
+	result := localmath.CalcDigitSum(&exp)
+	return result
 }
