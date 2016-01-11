@@ -508,3 +508,27 @@ func Solve016() int {
 	result := localmath.CalcDigitSum(&exp)
 	return result
 }
+
+func Solve017() int {
+	one, two, three, four, five := 3, 3, 5, 4, 4
+	six, seven, eight, nine, ten := 3, 5, 5, 4, 3
+	eleven, twelve, thirteen, fourteen, fifteen := 6, 6, 8, 8, 7
+	sixteen, seventeen, eighteen, nineteen := 7, 9, 8, 8
+	twenty, thirty, forty, fifty, sixty := 6, 6, 5, 5, 5
+	seventy, eighty, ninety := 7, 6, 6
+	hundred := 7
+	and := 3
+	oneThousand := 11
+	oneToNine := one + two + three + four + five
+	oneToNine += six + seven + eight + nine
+	oneToTen := oneToNine + ten
+	elevenToNineteen := eleven + twelve + thirteen + fourteen + fifteen
+	elevenToNineteen += sixteen + seventeen + eighteen + nineteen
+	sumOfTens := twenty + thirty + forty + fifty + sixty
+	sumOfTens += seventy + eighty + ninety
+	oneToNinetyNine := oneToTen + elevenToNineteen + (8 * oneToNine)
+	oneToNinetyNine += 10 * sumOfTens
+	oneToThousand := (10 * oneToNinetyNine) + (100 * oneToNine)
+	oneToThousand += (891 * and) + (900 * hundred) + oneThousand
+	return oneToThousand
+}
